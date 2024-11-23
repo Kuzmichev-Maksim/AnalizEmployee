@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="/target.css" link>
+<head>
+    <meta charset="UTF-8">
+    <title>Список целей</title>
+</head>
+<body>
+<p>
+    <a href="/login">
+        <button type="button">Назад</button>
+    </a>
+</p>
+
+
+<h1>Список целей</h1>
+
+<form action="/targets/add" method="post" th:object="${target}">
+    <input type="text" name="name" th:field="*{name}" placeholder="Название" required>
+    <div>
+        <label for="project">Проект: </label>
+        <select id="project" th:field="*{project}">
+            <option th:each="project : ${projects}" th:value="${project.id}" th:text="${project.name}"></option>
+        </select>
+    </div>
+    <button type="submit" formmethod="post">Добавить цель</button>
+</form>
+
+<h2>Все Цели:</h2>
+
+<ul>
+    <th:block th:each="target : ${targets}">
+        <li>
+            <span th:text="${target.name}"></span>
+            <form action="/targets/update" method="post" style="display:inline;">
+                <input type="hidden" name="id" th:value="${target.id}" required>
+                <input type="text" name="name" th:value="${target.name}" placeholder="Название" required>
+                <div>
+                    <label for="project">Проект: </label>
+                    <select id="project" name="project">
+                        <option th:each="project : ${projects}" th:value="${project.id}" th:text="${project.name}" th:selected="${project.id == target.project.id}"></option>
+                    </select>
+                </div>
+                <button type="submit" formmethod="post">Обновить</button>
+            </form>
+            <form action="/targets/delete" method="post" style="display:inline;">
+                <input type="hidden" name="id" th:value="${target.id}" required>
+                <button type="submit" formmethod="post">Удалить</button>
+            </form>
+        </li>
+    </th:block>
+</ul>
+</body>
+</html>

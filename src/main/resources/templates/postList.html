@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="/post.css" link>
+<head>
+    <meta charset="UTF-8">
+    <title>Список должностей</title>
+</head>
+<body>
+<p>
+    <a href="/login">
+        <button type="button">Назад</button>
+    </a>
+</p>
+<p>
+    <a href="/employees/all">
+        <button type="button">Сотрудники</button>
+    </a>
+</p>
+<p>
+    <a href="/departments/all">
+        <button type="button">Отделы</button>
+    </a>
+</p>
+<br>
+
+<h1>Список должностей</h1>
+
+<form action="/posts/add" method="post" th:object="${post}">
+    <input type="text" name="name" th:field="*{name}" placeholder="Название" required>
+    <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Имя не менее 2 символов</div>
+    <button type="submit" formmethod="post">Добавить должность</button>
+</form>
+
+<h2>Все должности:</h2>
+
+<ul>
+    <th:block th:each="post : ${posts}">
+        <li>
+            <span th:text="${post.name}"></span>
+
+            <form action="/posts/update" method="post" style="display:inline;">
+                <input type="hidden" name="id" th:value="${post.id}" required>
+                <input type="text" name="name" th:value="${post.name}" placeholder="Название" required>
+                <button type="submit" formmethod="post">Обновить</button>
+            </form>
+
+            <form action="/posts/delete" method="post" style="display:inline;">
+                <input type="hidden" name="id" th:value="${post.id}" required>
+                <button type="submit" formmethod="post">Удалить</button>
+            </form>
+        </li>
+    </th:block>
+</ul>
+</body>
+</html>

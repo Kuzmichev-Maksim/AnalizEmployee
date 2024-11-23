@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="/employee.css" link>
+<head>
+    <meta charset="UTF-8">
+    <title>Список работников</title>
+</head>
+<body>
+<p>
+    <a href="/login">
+        <button type="button">Назад</button>
+    </a>
+</p>
+<p>
+    <a href="/posts/all">
+        <button type="button">Должности</button>
+    </a>
+</p>
+<p>
+    <a href="/departments/all">
+        <button type="button">Отделы</button>
+    </a>
+</p>
+<br>
+
+<h1>Список Работников</h1>
+
+<form action="/employees/add" method="post" th:object="${employee}">
+    <input type="text" name="firstName" th:field="*{firstName}" placeholder="Фамилия" required>
+    <input type="text" name="name" th:field="*{name}" placeholder="Имя" required>
+    <input type="text" name="lastName" th:field="*{lastName}" placeholder="Отчество">
+    <div>
+        <label for="post">Должность: </label>
+        <select id="post" th:field="*{post}">
+            <option th:each="post : ${posts}" th:value="${post.id}" th:text="${post.name}"></option>
+        </select>
+    </div>
+    <button type="submit" formmethod="post">Добавить работника</button>
+</form>
+
+<h2>Все Работники:</h2>
+
+<ul>
+    <th:block th:each="employee : ${employees}">
+        <li>
+            <span th:text="${employee.name}"></span>
+            <form action="/employees/update" method="post" style="display:inline;">
+                <input type="hidden" name="id" th:value="${employee.id}" required>
+                <input type="text" name="firstName" th:value="${employee.firstName}" placeholder="Фамилия" required>
+                <input type="text" name="name" th:value="${employee.name}" placeholder="Имя" required>
+                <input type="text" name="lastName" th:value="${employee.lastName}" placeholder="Отчество" required>
+                <div>
+                    <label for="post">Работники: </label>
+                    <select id="post" name="post">
+                        <option th:each="post : ${posts}" th:value="${post.id}" th:text="${post.name}" th:selected="${post.id == employee.post.id}"></option>
+                    </select>
+                </div>
+                <button type="submit" formmethod="post">Обновить</button>
+            </form>
+            <form action="/employees/delete" method="post" style="display:inline;">
+                <input type="hidden" name="id" th:value="${employee.id}" required>
+                <button type="submit" formmethod="post">Удалить</button>
+            </form>
+        </li>
+    </th:block>
+</ul>
+</body>
+</html>

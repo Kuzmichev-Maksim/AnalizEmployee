@@ -1,0 +1,61 @@
+/* Общие стили для страницы ошибки */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    display: flex;
+    justify-content: center; /* Горизонтальное выравнивание */
+    align-items: center; /* Вертикальное выравнивание */
+    height: 100vh; /* Заполняет всю высоту экрана */
+    color: #333;
+    padding: 20px;
+}
+
+.error-container {
+    display: flex;
+    flex-direction: column; /* Элементы будут располагаться вертикально */
+    justify-content: center; /* Вертикальное выравнивание */
+    align-items: center; /* Горизонтальное выравнивание */
+    background-color: #fff;
+    padding: 50px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+}
+
+.error-content h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    color: #e74c3c;
+}
+
+.error-code {
+    font-size: 24px;
+    color: #2c3e50;
+}
+
+.error-message {
+    margin-top: 20px;
+    font-size: 18px;
+    color: #7f8c8d;
+}
+
+.error-link {
+    display: inline-block;
+    margin-top: 30px;
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.error-link:hover {
+    background-color: #2980b9;
+}

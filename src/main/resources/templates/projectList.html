@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="/project.css" link>
+<head>
+    <meta charset="UTF-8">
+    <title>Список проектов</title>
+</head>
+<body>
+<p>
+    <a href="/login">
+        <button type="button">Назад</button>
+    </a>
+</p>
+
+
+<h1>Список проектов</h1>
+
+<form action="/projects/add" method="post" th:object="${project}">
+    <input type="text" name="name" th:field="*{name}" placeholder="Название" required>
+    <div>
+        <label for="department">Отдел: </label>
+        <select id="department" th:field="*{department}">
+            <option th:each="department : ${departments}" th:value="${department.id}" th:text="${department.name}"></option>
+        </select>
+    </div>
+    <button type="submit" formmethod="post">Добавить отдел</button>
+</form>
+
+<h2>Все Отделы:</h2>
+
+<ul>
+    <th:block th:each="project : ${projects}">
+        <li>
+            <span th:text="${project.name}"></span>
+            <form action="/projects/update" method="post" style="display:inline;">
+                <input type="hidden" name="id" th:value="${project.id}" required>
+                <input type="text" name="name" th:value="${project.name}" placeholder="Название" required>
+                <div>
+                    <label for="department">Отдел: </label>
+                    <select id="department" name="department">
+                        <option th:each="department : ${departments}" th:value="${department.id}" th:text="${department.name}" th:selected="${department.id == project.department.id}"></option>
+                    </select>
+                </div>
+                <button type="submit" formmethod="post">Обновить</button>
+            </form>
+            <form action="/projects/delete" method="post" style="display:inline;">
+                <input type="hidden" name="id" th:value="${project.id}" required>
+                <button type="submit" formmethod="post">Удалить</button>
+            </form>
+        </li>
+    </th:block>
+</ul>
+</body>
+</html>
